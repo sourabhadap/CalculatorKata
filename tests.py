@@ -19,3 +19,10 @@ def test_add_unknown_amount_of_numbers_separated_by_commas():
 
 def test_add_new_line_delimiter():
     assert add("1\n2,3") == 6
+
+
+def test_negative_numbers():
+    try:
+        add("-1,2,-3")
+    except Exception as e:
+        assert str(e) == "Negatives not allowed: [-1, -3]"

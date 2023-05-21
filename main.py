@@ -1,16 +1,38 @@
 from typing import List
 
 
+def check_multiple_delimiters(delimiter: str):
+    delimiter = delimiter.replace('[', '').replace(']', ',')
+    delimiter = delimiter.split(',')
+    return delimiter
+
+
+def validate_and_update_multiple_delimiters(delimiters: List[str], numbers: str):
+    for i in delimiters:
+        if i in numbers:
+            numbers = numbers.replace(i, ',')
+        else:
+            raise Exception(f'Invalid delimiter: {i}')
+    numbers_list = numbers.split(',')
+    return numbers_list
+
+
 def split_numbers(numbers) -> List[str]:
     delimiter = ','
     if numbers.startswith('//['):
         delimiter, numbers = numbers.split('\n', 1)
         delimiter = delimiter[3:-1]
+        delimiters = check_multiple_delimiters(delimiter)
+        numbers_list = validate_and_update_multiple_delimiters(delimiters, numbers)
+        print(numbers_list)
     elif numbers.startswith('//'):
         delimiter, numbers = numbers.split('\n', 1)
         delimiter = delimiter[2:]
-    numbers = numbers.replace('\n', delimiter)
-    numbers_list = numbers.split(delimiter)
+        numbers = numbers.replace('\n', delimiter)
+        numbers_list = numbers.split(delimiter)
+    else:
+        numbers = numbers.replace('\n', delimiter)
+        numbers_list = numbers.split(delimiter)
     return numbers_list
 
 
@@ -36,4 +58,4 @@ def add(numbers: str) -> int:
 
 
 if __name__ == '__main__':
-    add('//[***]\n1***1001***3')
+    add('//[**][%%]\n1**2%%3')

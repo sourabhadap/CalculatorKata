@@ -26,3 +26,7 @@ def test_negative_numbers():
         add("-1,2,-3")
     except Exception as e:
         assert str(e) == "Negatives not allowed: [-1, -3]"
+
+
+def test_add_custom_delimiter():
+    assert add("//;\n1;2;4;5;7") == 19

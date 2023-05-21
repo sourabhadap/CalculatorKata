@@ -4,7 +4,8 @@ from typing import List
 def split_numbers(numbers) -> List[str]:
     delimiter = ','
     if numbers.startswith('//'):
-        pass
+        delimiter, numbers = numbers.split('\n', 1)
+        delimiter = delimiter[2:]
     numbers = numbers.replace('\n', delimiter)
     numbers_list = numbers.split(delimiter)
     return numbers_list
@@ -21,8 +22,9 @@ def add(numbers: str) -> int:
         return 0
     numbers_list = split_numbers(numbers)
     check_negative_numbers(numbers_list)
+    print(sum(map(int, numbers_list)))
     return sum(map(int, numbers_list))
 
 
 if __name__ == '__main__':
-    add('1\n2,3')
+    add('//;\n1;2;4;5;7')

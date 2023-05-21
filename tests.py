@@ -66,6 +66,13 @@ def test_add_custom_delimiter_of_any_length():
     assert add("//[***]\n1***2***3") == 6
 
 
+def test_add_custom_delimiter_of_any_length_and_incorrect_delimiter():
+    try:
+        add("//[***]\n1***2**3")
+    except Exception as e:
+        assert str(e) == "Invalid number: 2**3"
+
+
 def test_add_customer_delimiter_of_any_length_with_bignumbers():
     assert add("//[***]\n1***2001***3") == 4
 

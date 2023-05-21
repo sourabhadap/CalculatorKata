@@ -1,3 +1,4 @@
+import re
 from typing import List
 
 
@@ -5,6 +6,12 @@ def check_multiple_delimiters(delimiter: str):
     delimiter = delimiter.replace('[', '').replace(']', ',')
     delimiter = delimiter.split(',')
     return delimiter
+
+
+def check_numbers_value(value: str) -> bool:
+    pattern = r'^-?\d+(\.\d+)?$'  # Regex pattern to match a negative or positive number
+    result = bool(re.match(pattern, value))
+    return result
 
 
 def validate_and_update_multiple_delimiters(delimiters: List[str], numbers: str):
@@ -15,6 +22,12 @@ def validate_and_update_multiple_delimiters(delimiters: List[str], numbers: str)
             raise Exception(f'Invalid delimiter: {i}')
     numbers_list = numbers.split(',')
     return numbers_list
+
+
+def validate_numbers(numbers: List[str]):
+    for n in numbers:
+        if check_numbers_value(n) is False:
+            raise Exception(f'Invalid number: {n}')
 
 
 def split_numbers(numbers) -> List[str]:
@@ -51,6 +64,7 @@ def add(numbers: str) -> int:
     if numbers == '':
         return 0
     numbers_list = split_numbers(numbers)
+    validate_numbers(numbers_list)
     check_negative_numbers(numbers_list)
     numbers_list = check_bigger_numbers(numbers_list)
     print(sum(map(int, numbers_list)))

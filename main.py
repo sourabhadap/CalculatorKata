@@ -3,7 +3,10 @@ from typing import List
 
 def split_numbers(numbers) -> List[str]:
     delimiter = ','
-    if numbers.startswith('//'):
+    if numbers.startswith('//['):
+        delimiter, numbers = numbers.split('\n', 1)
+        delimiter = delimiter[3:-1]
+    elif numbers.startswith('//'):
         delimiter, numbers = numbers.split('\n', 1)
         delimiter = delimiter[2:]
     numbers = numbers.replace('\n', delimiter)
@@ -33,4 +36,4 @@ def add(numbers: str) -> int:
 
 
 if __name__ == '__main__':
-    add('//***\n1***1001***3')
+    add('//[***]\n1***1001***3')

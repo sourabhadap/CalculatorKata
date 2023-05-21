@@ -45,3 +45,11 @@ def test_add_bigger_numbers_without_delimiter():
 
 def test_add_bigger_numbers_with_delimiter():
     assert add("//;\n2;1001;6") == 8
+
+
+def test_add_custom_delimiter_of_any_length():
+    assert add("//[***]\n1***2***3") == 6
+
+
+def test_add_customer_delimiter_of_any_length_with_bignumbers():
+    assert add("//[***]\n1***2001***3") == 4
